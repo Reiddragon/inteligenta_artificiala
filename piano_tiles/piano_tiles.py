@@ -1,4 +1,3 @@
-from operator import le
 import pyautogui
 import keyboard
 
@@ -18,7 +17,7 @@ class PianoTiles:
 
     def _mouse_pos(self, border):
         print(f'Pune cursorul in {border} marginii ferestrei jocului si apasa ENTER')
-        x,y = 0 , 0
+        x, y = 0, 0
 
         while not (keyboard.is_pressed('enter') or keyboard.is_pressed('esc')):
             x, y = pyautogui.position()
@@ -32,7 +31,7 @@ class PianoTiles:
         lenght = self.right_x - self.left_x
         step = lenght // 4
         return [
-            (self.left_x + i, self.center_y) for i in range (step//2, lenght, step)
+            (self.left_x + i, self.center_y) for i in range(step//2, lenght, step)
         ]
 
     def _is_tile(self,pixel,threshold):
@@ -45,6 +44,7 @@ class PianoTiles:
                 if self._is_tile(pos, tile_rgb):
                     pyautogui.click(*pos)
                     break
+
 
 if __name__ == '__main__':
     PianoTiles().run()

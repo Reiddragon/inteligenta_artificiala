@@ -10,7 +10,7 @@ class PianoTiles:
         while keyboard.is_pressed('enter'):
             pass
         x2 = self._mouse_pos('DREAPTA')[0]
-        self.left_x, self.right_x = min (x1,x2), max(x1,x2)
+        self.left_x, self.right_x = min (x1, x2), max(x1, x2)
         self.center_y = pyautogui.size()[1] // 2
         self.tiles = self._tiles_pos()
         print(f'Coordonatele jocului sunt {self.left_x}, {self.right_x}, {self.center_y}')

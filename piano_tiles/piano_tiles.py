@@ -9,21 +9,20 @@ class PianoTiles:
 
         while keyboard.is_pressed('enter'):
             pass
+
         x2 = self._mouse_pos('DREAPTA')[0]
-        self.left_x, self.right_x = min (x1, x2), max(x1, x2)
+        self.left_x, self.right_x = min(x1, x2), max(x1, x2)
         self.center_y = pyautogui.size()[1] // 2
         self.tiles = self._tiles_pos()
         print(f'Coordonatele jocului sunt {self.left_x}, {self.right_x}, {self.center_y}')
 
     def _mouse_pos(self, border):
         print(f'Pune cursorul in {border} marginii ferestrei jocului si apasa ENTER')
-        x, y = 0, 0
 
         while not (keyboard.is_pressed('enter') or keyboard.is_pressed('esc')):
             x, y = pyautogui.position()
-            position = f'X: {str(x).rjust(4)}\tY: {str(y).rjust(4)}'
-            print(position, end='')
-            print('\b' * len(position), end='', flush=True)
+            print(f'X: {str(x).rjust(4)}\tY: {str(y).rjust(4)}', end='\r')
+
         print(f'{border} border: {x}, {y}')
         return x, y
 
@@ -31,12 +30,11 @@ class PianoTiles:
         lenght = self.right_x - self.left_x
         step = lenght // 4
         return [
-            (self.left_x + i, self.center_y) for i in range(step//2, lenght, step)
+            (self.left_x + i, self.center_y) for i in range(step // 2, lenght, step)
         ]
 
-    def _is_tile(self,pixel,threshold):
-        color = pyautogui.pixel(*pixel)
-        return color[0] <= threshold
+    def _is_tile(self, pixel, threshold):
+        return pyautogui.pixel(*pixel)[0] <= threshold
 
     def run(self, *, tile_rgb=10):
         while not keyboard.is_pressed('esc'):
